@@ -58,7 +58,7 @@ procedure TSIIBin_ValueNode_00000019.Initialize;
 var
   Coef: Int64;
 begin
-If FormatVersion = 2 then
+If (FormatVersion = 2) or (FormatVersion = 3) then
   begin
     Coef := Trunc(fValue[3]);
     fValue[0] := fValue[0] + Integer(((Coef and $FFF) - 2048) shl 9);
@@ -88,7 +88,7 @@ case FormatVersion of
         Stream_ReadFloat32(Stream,fValue[6]);
         Stream_ReadFloat32(Stream,fValue[7]);
       end;
-  2:  Stream_ReadBuffer(Stream,fValue,SizeOf(TSIIBin_Vec8s));
+  2,3:  Stream_ReadBuffer(Stream,fValue,SizeOf(TSIIBin_Vec8s));
 end;
 end;
 

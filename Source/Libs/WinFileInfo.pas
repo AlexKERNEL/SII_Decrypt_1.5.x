@@ -302,7 +302,7 @@ type
     fExists:                  Boolean;
     fLongName:                String;
     fShortName:               String;
-    fSize:                    UInt64;
+    fSize:                    Int64;
     fSizeStr:                 String;
     fCreationTime:            TDateTime;
     fLastAccessTime:          TDateTime;
@@ -359,7 +359,7 @@ type
     property Name: String read fLongName;
     property LongName: String read fLongName;
     property ShortName: String read fShortName;
-    property Size: UInt64 read fSize;
+    property Size: Int64 read fSize;
     property SizeStr: String read fSizeStr;
     property CreationTime: TDateTime read fCreationTime;
     property LastAccessTime: TDateTime read fLastAccessTime;
@@ -393,7 +393,7 @@ type
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-Function SizeToStr(Size: UInt64): String;
+Function SizeToStr(Size: Int64): String;
 
 implementation
 
@@ -531,7 +531,7 @@ end;
 {------------------------------------------------------------------------------}
 {==============================================================================}
 
-Function SizeToStr(Size: UInt64): String;
+Function SizeToStr(Size: Int64): String;
 const
   BinaryPrefix: array[0..8] of String = ('','Ki','Mi','Gi','Ti','Pi','Ei','Zi','Yi');
   PrefixShift = 10;
@@ -1094,7 +1094,7 @@ end;
 
 procedure TWinFileInfo.LoadSize;
 begin
-If GetFileSizeEx(fFileHandle,@fSize) then
+If GetFileSizeEx(fFileHandle,fSize) then
   fSizeStr := SizeToStr(fSize)
 else
   raise Exception.CreateFmt('TWinFileInfo.GetFileSize: Unable to obtain file size ("%s", 0x%.8x).',[fLongName,GetLastError]);

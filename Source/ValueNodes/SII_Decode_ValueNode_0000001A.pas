@@ -60,7 +60,7 @@ var
   i:    Integer;
   Coef: Int64;
 begin
-If FormatVersion = 2 then
+If (FormatVersion = 2) or (FormatVersion = 3) then
   For i := Low(fValue) to High(fValue) do
     begin
       Coef := Trunc(fValue[i][3]);
@@ -95,7 +95,7 @@ For i := Low(fValue) to High(fValue) do
           Stream_ReadFloat32(Stream,fValue[i][6]);
           Stream_ReadFloat32(Stream,fValue[i][7]);
         end;
-    2:  Stream_ReadBuffer(Stream,fValue[i],SizeOf(TSIIBin_Vec8s));
+    2,3:  Stream_ReadBuffer(Stream,fValue[i],SizeOf(TSIIBin_Vec8s));
   end;
 end;
 
